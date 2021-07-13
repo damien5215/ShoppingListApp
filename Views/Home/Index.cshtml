@@ -1,0 +1,30 @@
+﻿@using ShoppingListApp.Models
+
+@model IEnumerable<ShoppingList>
+
+@{
+    ViewBag.Title = "Shopping List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts
+{
+    @*<script>
+        var model = {
+
+        };
+
+    </script>*@
+}
+
+@section Body
+{
+    <div id="summary" class="section panel panel-primary">
+        @Html.Partial("_Summary", Model)
+    </div>
+
+    <div id="Editor" class="section panel panel-primary">
+        @Html.Partial("_Editor", new ShoppingList())
+    </div>
+}
+
