@@ -1,6 +1,5 @@
 ﻿@using ShoppingListApp.Models
-
-@model IEnumerable<ShoppingList>
+@*@model IEnumerable<ShoppingList>*@
 
 @{
     ViewBag.Title = "Shopping List";
@@ -9,18 +8,78 @@
 
 @section Scripts
 {
-    @*<script>
+    <script>
         var model = {
-
+            shoppingList: ko.observableArray()
         };
 
-    </script>*@
+        function sendAjaxRequest(httpMethod, callback, url) {
+            $.ajax("/api/web" + (url ? "/" + url : ""), {
+                type: httpMethod,
+                success: callback
+            });
+        }
+
+        function getAllItems() {
+            sendAjaxRequest("GET", function (data) {
+                model.shoppingList.removeAll();
+                for (var i = 0; i < data.length; i++) {
+                    model.shoppingList.push(data[i]);
+                }
+            });
+        }
+
+        function removeItem(item) {
+            sendAjaxRequest("DELETE", function () {
+                getAllItems();
+            }, item.ShoppingListId);
+        }
+
+        $(document).ready(function () {
+            getAllItems();
+            ko.applyBindings(model);
+        });
+
+    </script>
 }
 
 @section Body
 {
-    <div id="summary" class="section panel panel-primary">
+    @*<div id="summary" class="section panel panel-primary">
         @Html.Partial("_Summary", Model)
+    </div>*@
+
+    <div id="summary">
+        <br>
+        <div class="container">
+            <h3>Shopping List</h3>
+        </div>
+
+        <div class="container" id="page1">
+            <div class="panel-body">
+                <table class="table table-striped table-condensed">
+                    <thread>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th></th>
+                        </tr>
+                    </thread>
+                    <tbody data-bind="foreach: model.shoppingList">
+                        <tr>
+                            <td data-bind="text: ShoppingListId"></td>
+                            <td data-bind="text: ProductName"></td>
+                            <td data-bind="text: Quantity"></td>
+                            <td>
+                                <button class="btn btn-xs btn-primary" 
+                                        data-bind="click: removeItem">Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <div id="Editor" class="section panel panel-primary">

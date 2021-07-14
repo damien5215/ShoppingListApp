@@ -33,6 +33,12 @@ namespace ShoppingListApp.Models
                 ShoppingListId = 3,
                 ProductName = "Pancakes",
                 Quantity = 2
+            },
+            new ShoppingList
+            {
+                ShoppingListId = 4,
+                ProductName = "Biscuits (Choc)",
+                Quantity = 1
             }
         };
 
