@@ -32,14 +32,10 @@
 
         function getAllItems() {
             sendAjaxRequest("GET", function (data) {
-                console.log(model.shoppingList().length);
-
                 model.shoppingList.removeAll();
                 for (var i = 0; i < data.length; i++) {
                     model.shoppingList.push(data[i]);
                 }
-
-                console.log(model.shoppingList().length);
             });
         }
 
@@ -132,11 +128,13 @@
             <div class="panel-body">
                     <div class="form-group">
                         <label>ProductName</label>
-                        <input class="form-control" data-bind="value: model.editor.productName">
+                        <input class="form-control" 
+                               data-bind="value: model.editor.productName">
                     </div>
                     <div class="form-group">
                         <label>Quantity</label>
-                        <input class="form-control" data-bind="value: model.editor.quantity">
+                        <input class="form-control" 
+                               data-bind="value: model.editor.quantity">
                     </div>
                     <button class="btn btn-primary"
                             data-bind="click: handleEditorClick">Save</button>

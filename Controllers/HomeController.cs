@@ -5,12 +5,12 @@ namespace ShoppingListApp.Controllers
 {
     public class HomeController : Controller
     {
-        //private ShoppingRepository repo = ShoppingRepository.Current;
-
         public ViewResult Index()
         {
             return View();
         }
+
+        //private ShoppingRepository repo = ShoppingRepository.Current;
 
         //public ViewResult Index()
         //{
